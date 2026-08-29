@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+:root {
+  --yb-yellow: #facc15;
+  --yb-yellow-dark: #eab308;
+  --yb-black: #0f172a;
+  --yb-green: #22c55e;
+  --yb-orange: #fb923c;
+  --yb-red: #ef4444;
+  --yb-slate: #64748b;
+  font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #1e293b;
+  min-height: 100vh;
+}
+
+/* Vibrant Palette Header */
+.vibrant-header {
+  background-color: #facc15;
+  border-bottom: 3px solid #eab308;
+}
+
+.vibrant-logo-circle {
+  width: 42px;
+  height: 42px;
+  background-color: #0f172a;
+  color: #facc15;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Vibrant Palette Station Cards */
+.vibrant-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border-radius: 1rem; /* 16px */
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.vibrant-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Corner Status Ribbons */
+.status-corner-ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.35rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  border-bottom-left-radius: 0.85rem;
+  z-index: 2;
+}
+
+/* Metric Display Boxes */
+.metric-stat-box {
+  background-color: #f8fafc;
+  border: 1.5px solid #f1f5f9;
+  border-radius: 0.85rem;
+  padding: 0.75rem;
+  transition: all 0.15s ease;
+}
+
+.metric-stat-box:hover {
+  background-color: #f1f5f9;
+  border-color: #e2e8f0;
+}
+
+.metric-number-bold {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* Custom Filter Chips */
+.vibrant-filter-chip {
+  cursor: pointer;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.825rem;
+  font-weight: 700;
+  transition: all 0.15s ease;
+  border: 1.5px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.vibrant-filter-chip:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.vibrant-filter-chip.active {
+  background-color: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+}
+
+.vibrant-filter-chip.active-yellow {
+  background-color: #facc15;
+  border-color: #eab308;
+  color: #0f172a;
+}
+
+/* District Pills */
+.vibrant-district-pill {
+  cursor: pointer;
+  font-size: 0.825rem;
+  font-weight: 600;
+  padding: 0.35rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #334155;
+  transition: all 0.15s ease;
+}
+
+.vibrant-district-pill:hover {
+  background-color: #fef08a;
+  border-color: #facc15;
+  color: #0f172a;
+}
+
+.vibrant-district-pill.active {
+  background-color: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Status Indicator Dot Animation */
+@keyframes vibrant-pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.vibrant-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  display: inline-block;
+  animation: vibrant-pulse 2s infinite;
+}
+
+/* Rotate Animation */
+@keyframes spin-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.rotate-animation {
+  animation: spin-clockwise 1s linear infinite;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
