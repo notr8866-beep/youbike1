@@ -462,9 +462,11 @@ export default function App() {
       <footer className="bg-slate-900 text-slate-400 px-3 px-lg-4 py-3 mt-auto border-top border-slate-800">
         <div className="container-fluid px-0 d-flex flex-wrap justify-content-between align-items-center gap-3 text-xs">
           <div className="d-flex align-items-center gap-2">
-            <span className="fw-bold text-white">臺北市 YouBike 即時查詢</span>
+            <span className="fw-bold text-white">臺北騎點</span>
             <span>·</span>
-            <span>資料來源：臺北市政府 Open Data (YouBike 2.0 即時資訊)</span>
+            <span>臺北市 YouBike 2.0 即時查詢</span>
+            <span>·</span>
+            <span>資料來源：臺北市政府 Open Data</span>
           </div>
 
           {/* Color Legend Indicators */}

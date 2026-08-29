@@ -1,5 +1,6 @@
 import React from 'react';
 import { RefreshCw, MapPin, Bookmark, Bike, Clock, Sparkles } from 'lucide-react';
+import { AppLogo } from './AppLogo';
 
 interface HeaderProps {
   totalStations: number;
@@ -34,19 +35,22 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="d-flex flex-wrap align-items-center justify-content-between gap-3">
           {/* Logo & Main App Title */}
           <div className="d-flex align-items-center gap-3">
-            <div className="vibrant-logo-circle shadow-sm flex-shrink-0">
-              <span className="text-yellow-400 fw-bold fs-4">U</span>
+            <div className="flex-shrink-0 d-flex align-items-center justify-content-center">
+              <AppLogo size={46} />
             </div>
             <div>
               <div className="d-flex align-items-center gap-2 flex-wrap">
-                <h1 className="h4 mb-0 fw-black text-black tracking-tight font-black" style={{ fontWeight: 900 }}>
-                  臺北市 YouBike 即時查詢
+                <h1 className="h3 mb-0 fw-black text-black tracking-tight font-black" style={{ fontWeight: 900, letterSpacing: '-0.02em' }}>
+                  臺北騎點
                 </h1>
                 <span className="badge rounded-pill bg-black text-yellow-400 fw-bold px-2 py-1" style={{ fontSize: '0.72rem' }}>
-                  2.0 Open Data
+                  YouBike 2.0
+                </span>
+                <span className="badge rounded-pill bg-emerald-700 text-white fw-bold px-2 py-1 d-none d-sm-inline-block" style={{ fontSize: '0.72rem' }}>
+                  即時站點
                 </span>
               </div>
-              <p className="text-slate-800 small mb-0 fw-medium opacity-90 d-none d-sm-block">
+              <p className="text-slate-800 small mb-0 fw-semibold opacity-90 d-none d-sm-block">
                 臺北市交通局官方即時開放資料 · 每 30 秒自動更新
               </p>
             </div>
