@@ -1,11 +1,17 @@
 /*
- * Bootstrap is imported into its own low-priority cascade layer so that
- * Tailwind's utility classes (bg-*, text-*, etc.) can override Bootstrap's
- * component defaults (.btn, .badge, ...). Without this, Bootstrap's
- * unlayered styles would always win over Tailwind's layered utilities
- * regardless of specificity or source order, per the CSS cascade layers spec.
+ * Bootstrap is imported into its own cascade layer, positioned between
+ * Tailwind's "base" and "components" layers:
+ *  - above "base" so Bootstrap's component defaults (.badge padding,
+ *    .btn background, borders, ...) aren't wiped out by Tailwind's
+ *    preflight reset (universal padding:0/border:0, button
+ *    background-color:transparent, etc.)
+ *  - below "components"/"utilities" so Tailwind's utility classes
+ *    (bg-*, text-*, etc.) can still override Bootstrap's colors.
+ * Without this layering, Bootstrap's unlayered styles would always win
+ * over Tailwind's layered utilities regardless of specificity or source
+ * order, per the CSS cascade layers spec.
  */
-@layer bootstrap, theme, base, components, utilities;
+@layer theme, base, bootstrap, components, utilities;
 
 @import "bootstrap/dist/css/bootstrap.min.css" layer(bootstrap);
 @import "bootstrap-icons/font/bootstrap-icons.css" layer(bootstrap);
