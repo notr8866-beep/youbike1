@@ -69,7 +69,7 @@ export default function App() {
     });
   }, []);
 
-  // Fetch data from Node.js backend (/api/youbike)
+  // Fetch data from Node.js / Vercel backend (/api/youbike) with automatic direct Open Data fallback
   const fetchData = useCallback(async (force = false) => {
     try {
       if (stations.length === 0) {
@@ -80,10 +80,61 @@ export default function App() {
       setErrorMessage(null);
 
       const url = force ? '/api/youbike?force=true' : '/api/youbike';
-      const res = await fetch(url);
+      let res: Response | null = null;
+      let usedFallback = false;
+
+      try {
+        res = await fetch(url);
+      } catch (networkErr) {
+        console.warn('Backend /api/youbike unreachable, trying direct Open Data fallback...', networkErr);
+      }
       
-      if (!res.ok) {
-        throw new Error(`伺服器回應錯誤 (${res.status})`);
+      // If backend returned 404 or failed, fallback directly to Taipei Open Data blob
+      if (!res || !res.ok) {
+        usedFallback = true;
+        console.info('Backend returned non-200 or 404, fetching directly from Taipei Open Data...');
+        const OPEN_DATA_URL = 'https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json';
+        res = await fetch(OPEN_DATA_URL, {
+          headers: {
+            'Accept': 'application/json',
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error(`開放資料伺服器回應異常 (${res.status})`);
+        }
+
+        const rawStations: YouBikeRawStation[] = await res.json();
+        if (!Array.isArray(rawStations) || rawStations.length === 0) {
+          throw new Error('未取得任何站點資料');
+        }
+
+        // 計算行政區
+        const districtsSet = new Set<string>();
+        rawStations.forEach((st) => {
+          if (st.sarea) districtsSet.add(st.sarea);
+        });
+
+        const districtOrder = [
+          '中正區', '大同區', '中山區', '松山區', '大安區', '萬華區',
+          '信義區', '士林區', '北投區', '內湖區', '南港區', '文山區',
+          '臺大公館校區'
+        ];
+
+        const sortedDistricts = Array.from(districtsSet).sort((a, b) => {
+          const idxA = districtOrder.indexOf(a);
+          const idxB = districtOrder.indexOf(b);
+          if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+          if (idxA !== -1) return -1;
+          if (idxB !== -1) return 1;
+          return a.localeCompare(b, 'zh-Hant');
+        });
+
+        setStations(rawStations);
+        setDistricts(sortedDistricts);
+        setLastFetchedAt(Date.now());
+        setAutoRefreshCountdown(AUTO_REFRESH_INTERVAL);
+        return;
       }
 
       const data: ApiResponse = await res.json();
